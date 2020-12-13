@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Second Page</title>
+</head>
+<body>
+  <h1>This is Second Page</h1>
+  <input id="move-back" type="button" value="back">
+</body>
+<script>
+  const t = document.getElementById('move-back')
+  t.addEventListener('click', function() {
+    console.log()
+    history.back()
+  })
+</script>
+</html>
