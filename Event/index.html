@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="one">
+      <span>one</span>
+      <div class="two">
+        <span>two</span>
+        <div class="three">
+          <span>three</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const divOne = document.querySelector(".one");
+      const divs = document.querySelectorAll("div");
+      divs.forEach((div) => {
+        // three를 클릭하면 three, two, one모두 출력된다.
+        // 이처럼 자식DOM에서 부모에게 이벤트가 전달되는 방식을 `이벤트 버블링`이라고 함
+        div.addEventListener("click", (e) => {
+          console.log(e.currentTarget.className);
+        });
+
+        // 아래처럼 capture:true 속성을 적용하면 이벤트 캡쳐가 발동한다.
+        // three를 클릭하면 부모부터 이벤트가 발생한 three까지 내려오면서 이벤트를 찾게 된다.
+        div.addEventListener(
+          "click",
+          (e) => {
+            console.log(e.currentTarget.className);
+          },
+          { capture: true }
+        );
+
+        // 이벤트버블링, 이벤트캡쳐를 막기 위해서는 `event.stopPropagation()` 메서드로 막을 수 있음
+        div.addEventListener("click", (e) => {
+          e.stopPropagation();
+          console.log(e.currentTarget.className);
+        });
+      });
+
+      // 만약 ul > li*10000 처럼 자식DOM의 수가 많을 때는 위처럼 모든 자식에 이벤트를 걸어주는게 비효율적!
+      // 아래처럼 부모노드에 이벤트를 걸어주면 자식 또한 이벤트를 발동시킬 수 있는데, 이를 이벤트 위임이라고 한다.
+      divOne.addEventListener("click", (e) => console.log(e.target.className));
+    </script>
+  </body>
+</html>
